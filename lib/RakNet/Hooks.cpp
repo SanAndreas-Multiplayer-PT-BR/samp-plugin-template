@@ -36,13 +36,13 @@ namespace RakNet
 			int(*pfn_GetRakServer)(void) = (int(*)(void))ppPluginData[PLUGIN_DATA_RAKSERVER];
 			pRakServer = reinterpret_cast<RakServer*>(pfn_GetRakServer());
 
-			int* pRakServer_VTBL = reinterpret_cast<int*>(*reinterpret_cast<void**>(pRakServer));
-
-			UnProtect(pRakServer_VTBL[RAKNET_RECEIVE_OFFSET], 4);
-
+			int* pRakServer_VTBL = ((int*)(*(void**)pRakServer));
 			Receive = reinterpret_cast<RakNet_Receive_t>(pRakServer_VTBL[RAKNET_RECEIVE_OFFSET]);
+
+			Unlock((void*)&pRakServer_VTBL[RAKNET_RECEIVE_OFFSET], 4);
+			pRakServer_VTBL[RAKNET_RECEIVE_OFFSET] = reinterpret_cast<int>(HookReceive);
+
 		}
-		
 	}
 
 	BYTE Hooks::GetPacketID(Packet* p)
@@ -65,7 +65,5 @@ namespace RakNet
 			return (reinterpret_cast<getPacketId>(GetPacketID_hook.GetTrampoline()))(p);
 		}
 	}
-
-
 
 }

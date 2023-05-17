@@ -28,6 +28,7 @@ namespace RakNet
 	public:
 		static RakServer* pRakServer;
 		static RakNet_Receive_t Receive;
+		static Packet* __thiscall HookReceive(void* ppRakServer);
 		static BYTE GetPacketID(Packet* p);
 		static bool Load();
 		static void AmxLoad();

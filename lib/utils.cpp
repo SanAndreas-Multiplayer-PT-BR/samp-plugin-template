@@ -11,6 +11,21 @@ void UnProtect(DWORD dwAddress, size_t sSize)
 #endif
 }
 
+bool Unlock(void* address, size_t len)
+{
+#ifdef _WIN32
+	DWORD
+		oldp;
+	// Shut up the warnings :D
+	return !!VirtualProtect(address, len, PAGE_EXECUTE_READWRITE, &oldp);
+#else
+	size_t
+		iPageSize = getpagesize(),
+		iAddr = ((reinterpret_cast <uint32_t>(address) / iPageSize) * iPageSize);
+	return !mprotect(reinterpret_cast <void*>(iAddr), len, PROT_READ | PROT_WRITE | PROT_EXEC);
+#endif
+}
+
 bool memory_compare(const BYTE* data, const BYTE* pattern, const char* mask)
 {
 	for (; *mask; ++mask, ++data, ++pattern) {
