@@ -27,11 +27,10 @@ PLUGIN_EXPORT int PLUGIN_CALL AmxUnload(AMX* amx) {
 	return 1;
 }
 
-RakNet::Packet* THISCALL RakNet::Hooks::HookReceive(void* ppRakServer)
+RakNet::Packet* __thiscall RakNet::Hooks::HookReceive(void* ppRakServer)
 {
 	RakNet::Packet* packet = RakNet::Hooks::Receive((void*)RakNet::Hooks::pRakServer);
 	BYTE packetID = RakNet::Hooks::GetPacketID(packet);
-	
 	return packet;
 }
 
