@@ -27,19 +27,11 @@ PLUGIN_EXPORT int PLUGIN_CALL AmxUnload(AMX* amx) {
 	return 1;
 }
 
-RakNet::Packet* __thiscall RakNet::Hooks::HookReceive(void* ppRakServer)
+RakNet::Packet* THISCALL RakNet::Hooks::HookReceive(void* ppRakServer)
 {
 	RakNet::Packet* packet = RakNet::Hooks::Receive((void*)RakNet::Hooks::pRakServer);
 	BYTE packetID = RakNet::Hooks::GetPacketID(packet);
-	if (packetID == (int)RakNet::incoming_packets::ID_ONFOOT_SYNC)
-	{
-		if (packet->data && packet->length >= sizeof(NetGame::CSyncData) + 1)
-		{
-			logprintf("Incomming!!!!");
-			NetGame::CSyncData* pSyncData = reinterpret_cast<NetGame::CSyncData*>(&packet->data[1]);
-			logprintf("Incomming packet ID_ONFOOT_SYNC playerid = %d, BYTE weaponid = %d, health = %d, armour = %d", packet->playerIndex, pSyncData->byteWeapon, pSyncData->byteHealth, pSyncData->byteArmour);
-		}
-	}
+	
 	return packet;
 }
 

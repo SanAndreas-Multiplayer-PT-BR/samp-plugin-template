@@ -4,6 +4,18 @@
  */
 #ifndef _RAK_HOOKS_H_
 #define _RAK_HOOKS_H_
+
+#ifdef _WIN32
+#define STDCALL __stdcall
+#define THISCALL __thiscall
+#define FASTCALL __fastcall
+#else
+#define STDCALL
+#define THISCALL
+#define FASTCALL
+#define CDECL
+#endif
+
 #include "../SDK/plugin.h"
 #include "../types.h"
 #include "../subhook/subhook.h"
@@ -17,7 +29,7 @@
 
 namespace RakNet
 {
-	typedef Packet* (__thiscall* RakNet_Receive_t)(void* ppRakServer);
+	typedef Packet* (THISCALL* RakNet_Receive_t)(void* ppRakServer);
 	typedef BYTE(*getPacketId)(Packet* p);
 
 	extern DWORD FUNC_GetPacketID;
@@ -28,7 +40,7 @@ namespace RakNet
 	public:
 		static RakServer* pRakServer;
 		static RakNet_Receive_t Receive;
-		static Packet* __thiscall HookReceive(void* ppRakServer);
+		static Packet* THISCALL HookReceive(void* ppRakServer);
 		static BYTE GetPacketID(Packet* p);
 		static bool Load();
 		static void AmxLoad();
