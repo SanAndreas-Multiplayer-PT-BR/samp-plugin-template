@@ -1,5 +1,0 @@
-D:/Louzin_lab/SA-MP/samp-plugin-template/build/x86-debug/CMakeFiles/edit_cache.dir
-D:/Louzin_lab/SA-MP/samp-plugin-template/build/x86-debug/CMakeFiles/rebuild_cache.dir
-D:/Louzin_lab/SA-MP/samp-plugin-template/build/x86-debug/src/CMakeFiles/Plugin.dir
-D:/Louzin_lab/SA-MP/samp-plugin-template/build/x86-debug/src/CMakeFiles/edit_cache.dir
-D:/Louzin_lab/SA-MP/samp-plugin-template/build/x86-debug/src/CMakeFiles/rebuild_cache.dir
